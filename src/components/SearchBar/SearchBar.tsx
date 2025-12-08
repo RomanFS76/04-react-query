@@ -5,25 +5,29 @@ interface SearchBarProps {
   onSubmit: (query: string) => Promise<void>;
 }
 
+const showMoviesToast = () => {
+  toast('Please enter your search query.', {
+    duration: 3000,
+    position: 'top-center',
+    style: {
+      background: '#fff',
+      marginTop: '100px',
+      fontSize: '18px',
+      padding: '16px 20px',
+      color: 'black',
+      fontWeight: '700',
+      border: '2px solid black',
+      borderRadius: '8px',
+    },
+  });
+};
+
 const SearchBar = ({ onSubmit }: SearchBarProps) => {
   const handleSearch = (formData: FormData) => {
     const query = formData.get('query') as string;
 
     if (query === '') {
-      toast('Please enter your search query.', {
-        duration: 3000,
-        position: 'top-center',
-        style: {
-          background: '#fff',
-          marginTop: '100px',
-          fontSize: '18px',
-          padding: '16px 20px',
-          color: 'black',
-          fontWeight: '700',
-          border: '2px solid black',
-          borderRadius: '8px',
-        },
-      });
+      showMoviesToast();
       return;
     }
     onSubmit(query);

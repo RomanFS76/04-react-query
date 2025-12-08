@@ -26,25 +26,27 @@ export default function App() {
   const results = data?.results ?? [];
   const totalPages = data?.total_pages ?? 0;
 
+  const showNoMoviesToast = () => {
+    toast('No movies found for your request.', {
+      duration: 3000,
+      position: 'top-center',
+      style: {
+        background: '#fff',
+        marginTop: '100px',
+        fontSize: '18px',
+        padding: '16px 20px',
+        color: 'black',
+        fontWeight: '700',
+        border: '2px solid black',
+        borderRadius: '8px',
+      },
+    });
+  };
+
   useEffect(() => {
-    if (data && results.length === 0) {
-      toast('No movies found for your request.', {
-        duration: 3000,
-        position: 'top-center',
-        style: {
-          background: '#fff',
-          marginTop: '100px',
-          fontSize: '18px',
-          padding: '16px 20px',
-          color: 'black',
-          fontWeight: '700',
-          border: '2px solid black',
-          borderRadius: '8px',
-        },
-      });
-      return;
-    }
-  }, [data,results.length]);
+    if (!data) return;
+    if (results.length === 0) showNoMoviesToast();
+  }, [data, results.length]);
 
   const closeModal = () => {
     setSelectedMovie(null);
